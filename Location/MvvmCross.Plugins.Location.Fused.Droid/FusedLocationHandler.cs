@@ -38,9 +38,10 @@ namespace MvvmCross.Plugins.Location.Fused.Droid
 				return;
 			}
 
-			LocationServices.FusedLocationApi.RemoveLocationUpdates(_client, this);
-
-			_client.Disconnect ();
+			if (_client.IsConnected) {
+				LocationServices.FusedLocationApi.RemoveLocationUpdates(_client, this);
+				_client.Disconnect ();
+			}
 		}
 
 		public Android.Locations.Location GetLastKnownLocation ()
